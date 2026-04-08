@@ -8,6 +8,37 @@ Each dinosaur has a unique identity that allows tracking, study, and control.
 
 ---
 
+## Project Structure
+
+```
+NEOGENESIS
+App
+    |
+    |_Data
+        |_NeoGenesisContext.cs
+    |
+    |_Entities
+        |_Dinosaur.cs
+    |  
+    |_Services
+        |_DinosaurService.cs
+    |
+    |_Validators
+        |_DinosaurValidator.cs
+    |
+    |_Repository
+        |_DinosaurRepository.cs
+    |
+    |_LINQ
+        |_DinosaurQueryService.cs
+    |
+    |_Program.cs
+
+README.md
+REQUESTS.md
+.gitignore
+```
+
 ## 2. System Objectives
 
 - Register dinosaurs with required basic information
