@@ -204,3 +204,21 @@ Advanced Filters:
 ```bash
 Add-Migration InitialCreate
 Update-Database
+```
+
+## 9. Best Practices Applied
+- Separation of concerns
+- Clean and readable code
+- Use of design patterns (Repository, Service)
+- Centralized validations
+- LINQ for querying
+
+## 10. Possible Improvements
+- Authentication and authorization
+- Movement history tracking
+- Real-time sensor integration
+- REST API implementation
+
+## 11. Conclusion
+
+The proposed system provides an efficient, scalable, and reliable solution for managing dinosaur records within NeoGenesis Park, fulfilling all functional and technical requirements.
