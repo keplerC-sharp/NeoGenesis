@@ -32,6 +32,9 @@ The system follows a layered architecture:
 
 ## 4. Class Diagram Description
 
+![Clases diagra](./Classes-diagram.png)
+
+
 ### 4.1 Class: Dinosaur
 
 Represents the main entity of the system.
