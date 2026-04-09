@@ -176,7 +176,7 @@ Rules:
 
 ---
 
-## 5. Relationships Between Classes
+### 4.7. Relationships Between Classes
 
 - NeoGenesisContext contains Dinosaur entities
 - DinosaurRepository uses NeoGenesisContext
@@ -184,6 +184,66 @@ Rules:
 - DinosaurQueryService uses NeoGenesisContext
 
 ---
+
+## 5. Flowchart
+![Flowchart](./flowchart.png)
+### 5.1. Register Dinosaur
+
+The user must enter the following fields: Name, Species, Username, Email, and Age.
+
+The system validates each field in order:
+- If any field is empty, it shows: "All fields are required."
+- If the email format is invalid, it shows: "Invalid email format."
+- If the username already exists, it shows: "Username already registered."
+- If the email already exists, it shows: "Email already registered."
+- If Age is 0 or below, it shows: "Age cannot be negative."
+
+If all validations pass, the record is saved to the database and a success message is shown.
+
+## 2. Consult Dinosaurs
+
+The user selects a query type and the system executes it via LINQ (EF Core), then displays the results in the console.
+
+Available query types:
+- List all
+- Search by ID
+- Search by Email
+- Filter by Zone
+- Filter by Sector
+- Filter by Age
+- Filter by Type
+- Query without tracking
+- Query without direction
+- Last registered
+- Alphabetical order (by name)
+- Counts (by zone or sector)
+
+## 3. Update Dinosaur
+
+The user searches for a dinosaur by ID or Email. If not found, the system shows: "Dinosaur not found."
+
+If found, the user selects the field to update: Name, Species, Username, Email, Age, or Password.
+
+If updating the password, the user must enter and confirm the new password. If they do not match, the system shows: "Passwords do not match."
+
+If everything is valid, the record is updated in the database.
+
+## 4. Delete Dinosaur
+
+The user searches for a dinosaur by ID or Email. If not found, the system shows: "Dinosaur not found."
+
+If found, the system asks for confirmation (Y/N). If the user declines, the operation is cancelled. If confirmed, the record is deleted from the database.
+
+## 5. Exit
+
+The system asks: "Are you sure you want to exit? (Y/N)". If the user confirms, the application ends. Otherwise, it returns to the main menu.
+
+## Tech Stack
+
+- Language: C#
+- ORM: Entity Framework Core
+- Query language: LINQ
+- Interface: Console application
 
 ## 6. System Functionalities
 
