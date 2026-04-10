@@ -14,7 +14,7 @@ public class NeoGenesisContext : DbContext
         var database = Environment.GetEnvironmentVariable("DB_NAME");
         var user = Environment.GetEnvironmentVariable("DB_USER");
         var password = Environment.GetEnvironmentVariable("DB_PASSWORD");
-
+        
         if (string.IsNullOrEmpty(host) ||
             string.IsNullOrEmpty(database) ||
             string.IsNullOrEmpty(user) ||
@@ -41,6 +41,9 @@ public class NeoGenesisContext : DbContext
             entity.Property(d => d.CreationDate)
                 .HasColumnType("timestamp")
                 .HasDefaultValueSql("CURRENT_TIMESTAMP");
+            
+            entity.HasIndex(d => d.Email).IsUnique();
+            entity.HasIndex(d => d.Username).IsUnique();
         });
     }
 }
