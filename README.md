@@ -189,7 +189,7 @@ Rules:
 ![Flowchart](./flowchart.png)
 ### 5.1. Register Dinosaur
 
-The user must enter the following fields: Name, Species, Username, Email, and Age.
+The user must enter the following fields: Name, Species, Username, Email, Age, Password, Type, Zone, Sector, and Phone.
 
 The system validates each field in order:
 - If any field is empty, it shows: "All fields are required."
