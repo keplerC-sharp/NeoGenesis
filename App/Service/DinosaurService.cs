@@ -2,13 +2,21 @@ namespace App.Service;
 
 public class DinosaurService
 {
-    readonly App.Repository.DinosaurRepository _repo;
+    readonly App.Repository.DinosaurRepository _repository;
     readonly App.LINKQ.DinosaurQueryService _queries;
 
-    public DinosaurService(App.Repository.DinosaurRepository repo, App.LINKQ.DinosaurQueryService queries)
+    private readonly App.Validators.DinosaurValidator _validator;
+
+
+    public DinosaurService(App.Repository.DinosaurRepository repository, 
+    App.LINKQ.DinosaurQueryService queries,
+    App.Validators.DinosaurValidator validator
+    )
     {
-        _repo = repo;
+        _repository = repository;
         _queries = queries;
+        _validator = validator;
+
     }
 
     public IEnumerable<App.Entities.Dinosaur> GetAll()
@@ -31,18 +39,18 @@ public class DinosaurService
         return _queries.FilterByMinAge(minAge);
     }
 
-    public IEnumerable<App.Entities.Dinosaur> FilterByDiet(App.Entities.DietType diet)
+    /*public IEnumerable<App.Entities.Dinosaur> FilterByDiet(App.Entities.DietType diet)
     {
         return _queries.FilterByDiet(diet);
-    }
+    }*/
 
     public bool DeleteByEmail(string email)
     {
-        return _repo.DeleteByEmail(email);
+        return _repository.DeleteByEmail(email);
     }
 
     public App.Entities.Dinosaur? GetByEmail(string email)
     {
-        return _repo.GetByEmail(email);
+        return _repository.GetByEmail(email);
     }
 }

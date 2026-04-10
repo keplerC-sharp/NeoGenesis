@@ -1,52 +1,49 @@
+using App.Entities;
+using Microsoft.EntityFrameworkCore;
+
 namespace App.Data;
 
-public class NeoGenesisContext
+public class NeoGenesisContext : DbContext
 {
-    public List<App.Entities.Dinosaur> Dinosaurs { get; } = new();
+    public DbSet<Dinosaur> Dinosaurs { get; set; }
 
-    public NeoGenesisContext()
+    protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
-        Seed();
+        var host = Environment.GetEnvironmentVariable("DB_HOST");
+        // Console.WriteLine(host);
+        var database = Environment.GetEnvironmentVariable("DB_NAME");
+        var user = Environment.GetEnvironmentVariable("DB_USER");
+        var password = Environment.GetEnvironmentVariable("DB_PASSWORD");
+        
+        if (string.IsNullOrEmpty(host) ||
+            string.IsNullOrEmpty(database) ||
+            string.IsNullOrEmpty(user) ||
+            string.IsNullOrEmpty(password))
+        {
+            throw new Exception("Faltan variables de entorno para la conexión a la base de datos.");
+        }
+
+        var connectionString = $"server={host};database={database};user={user};password={password}";
+
+        options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
     }
 
-    void Seed()
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        if (Dinosaurs.Count > 0) return;
-        Dinosaurs.AddRange(new[]
+        modelBuilder.Entity<Dinosaur>(entity =>
         {
-            new App.Entities.Dinosaur
-            {
-                Id = 1,
-                FirstName = "Rex",
-                LastName = "Tyrannosaurus",
-                UserName = "t-rex",
-                Email = "rex@park.com",
-                Age = 12,
-                Diet = App.Entities.DietType.Carnivoro,
-                CreatedAt = DateTime.UtcNow.AddDays(-1)
-            },
-            new App.Entities.Dinosaur
-            {
-                Id = 2,
-                FirstName = "Blue",
-                LastName = "Velociraptor",
-                UserName = "raptor-blue",
-                Email = "blue@park.com",
-                Age = 8,
-                Diet = App.Entities.DietType.Carnivoro,
-                CreatedAt = DateTime.UtcNow.AddDays(-5)
-            },
-            new App.Entities.Dinosaur
-            {
-                Id = 3,
-                FirstName = "Leaf",
-                LastName = "Triceratops",
-                UserName = "tri-leaf",
-                Email = "leaf@park.com",
-                Age = 15,
-                Diet = App.Entities.DietType.Herbivoro,
-                CreatedAt = DateTime.UtcNow.AddHours(-6)
-            }
+            entity.Property(d => d.FirstName).IsRequired();
+            entity.Property(d => d.LastName).IsRequired();
+            entity.Property(d => d.Username).IsRequired();
+            entity.Property(d => d.Email).IsRequired();
+
+            // MySQL usa CURRENT_TIMESTAMP
+            entity.Property(d => d.CreationDate)
+                .HasColumnType("timestamp")
+                .HasDefaultValueSql("CURRENT_TIMESTAMP");
+            
+            entity.HasIndex(d => d.Email).IsUnique();
+            entity.HasIndex(d => d.Username).IsUnique();
         });
     }
 }
