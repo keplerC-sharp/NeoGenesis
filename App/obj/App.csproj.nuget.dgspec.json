@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/csharp/Descargas/NeoGenesis/App/App.csproj": {}
+    "/home/csharp/Escritorio/C_sharp/NeoGenesis/App/App.csproj": {}
   },
   "projects": {
-    "/home/csharp/Descargas/NeoGenesis/App/App.csproj": {
+    "/home/csharp/Escritorio/C_sharp/NeoGenesis/App/App.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/csharp/Descargas/NeoGenesis/App/App.csproj",
+        "projectUniqueName": "/home/csharp/Escritorio/C_sharp/NeoGenesis/App/App.csproj",
         "projectName": "App",
-        "projectPath": "/home/csharp/Descargas/NeoGenesis/App/App.csproj",
+        "projectPath": "/home/csharp/Escritorio/C_sharp/NeoGenesis/App/App.csproj",
         "packagesPath": "/home/csharp/.nuget/packages/",
-        "outputPath": "/home/csharp/Descargas/NeoGenesis/App/obj/",
+        "outputPath": "/home/csharp/Escritorio/C_sharp/NeoGenesis/App/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/csharp/.nuget/NuGet/NuGet.Config"
