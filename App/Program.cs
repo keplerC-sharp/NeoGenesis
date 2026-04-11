@@ -69,6 +69,34 @@ void ShowList(IEnumerable<Dinosaur> list)
         Console.WriteLine("No dinosaurs registered.");
     }
 }
+
+void ShowOne(Dinosaur dino)
+{
+    if (dino == null)
+        Console.WriteLine("Dino not found.");
+    else
+        Console.WriteLine($"{dino.Id} | {dino.FirstName} | {dino.LastName} | {dino.Username} | {dino.Email} | Age: {dino.Age} | Type: {dino.Type} | Created: {dino.CreationDate:yyyy-MM-dd HH:mm:ss} UTC");
+    
+}
+
+void ShowGetNameAndEmailReport(IEnumerable<Dinosaur> dino)
+{
+    dino.Select(d => new
+        {
+            FullName = d.FirstName + " " + d.LastName,
+            d.Email
+        })
+        .ToList();
+    
+    Console.WriteLine("=== Dinosaur Report (Name & Email) ===");
+    
+    foreach (var item in dino)
+    {
+        Console.WriteLine($"Name: {item.FirstName} | Email: {item.Email}");
+    }
+    
+    Console.WriteLine($"Total dinosaurs: {dino.Count()}");
+}
 //
 //     void ListAll()
 //     {
@@ -168,3 +196,86 @@ void ShowList(IEnumerable<Dinosaur> list)
 //     Console.WriteLine(e);
 //     throw;
 // }
+
+
+// void DinoById(int id)
+// { 
+//     var dino = service.GetById(id);
+//     Console.WriteLine("Full list:");
+//     ShowOne(dino);
+// }
+
+// try
+// {
+    // DinoById(10);
+// }
+// catch (Exception e)
+// {
+//     Console.WriteLine(e);
+//     throw;
+// }
+
+// void GetNameAndEmailReport()
+// {
+//     var result =query.GetNameAndEmailReport();
+//     ShowGetNameAndEmailReport(result);
+// }
+//
+// GetNameAndEmailReport();
+
+
+// UPDATE DINO
+//     Console.WriteLine("=== Update Dinosaur ===");
+//
+//     Console.Write("Enter ID: ");
+//     int id = int.Parse(Console.ReadLine());
+//
+//     var existing = repository.GetById(id);
+//
+//     if (existing == null)
+//     {
+//         Console.WriteLine("Dinosaur not found.");
+//         return;
+//     }
+//
+// // Pedir nuevos valores
+//     Console.Write("First Name: ");
+//     existing.FirstName = Console.ReadLine();
+//
+//     Console.Write("Last Name: ");
+//     existing.LastName = Console.ReadLine();
+//
+//     Console.Write("Username: ");
+//     existing.Username = Console.ReadLine();
+//
+//     Console.Write("Email: ");
+//     existing.Email = Console.ReadLine();
+//
+//     Console.Write("Password: ");
+//     existing.Password = Console.ReadLine();
+//
+//     Console.Write("Age: ");
+//     existing.Age = int.Parse(Console.ReadLine());
+//
+//     Console.Write("Type: ");
+//     existing.Type = Console.ReadLine();
+//
+//     Console.Write("Zone: ");
+//     existing.Zone = Console.ReadLine();
+//
+//     Console.Write("Sector: ");
+//     existing.Sector = Console.ReadLine();
+//
+//     Console.Write("Phone: ");
+//     existing.Phone = Console.ReadLine();
+//
+//     try
+//     {
+//         service.Update(existing);
+//     }
+//     catch (Exception ex)
+//     {
+//         Console.WriteLine($"Error: {ex.Message}");
+//     }
+
+

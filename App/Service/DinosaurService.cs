@@ -36,9 +36,67 @@ public class DinosaurService
         Console.WriteLine("Dinosaur registered successfully!");
     }
     
+    public void Update(Dinosaur updatedDino)
+    {
+        var existing = _repository.GetById(updatedDino.Id);
+
+        if (existing == null)
+            throw new Exception("Dinosaur not found.");
+
+        // Validar campos obligatorios
+        if (string.IsNullOrWhiteSpace(updatedDino.FirstName) ||
+            string.IsNullOrWhiteSpace(updatedDino.LastName) ||
+            string.IsNullOrWhiteSpace(updatedDino.Username) ||
+            string.IsNullOrWhiteSpace(updatedDino.Email))
+        {
+            throw new Exception("Required fields cannot be empty.");
+        }
+
+        // Validar email formato
+        _validator.ValidateEmail(updatedDino.Email);
+
+        // Validar duplicados (si cambian)
+        if (existing.Email != updatedDino.Email &&
+            _repository.GetByEmail(updatedDino.Email) != null)
+        {
+            throw new Exception("Email already registered.");
+        }
+
+        if (existing.Username != updatedDino.Username &&
+            _repository.GetByUsername(updatedDino.Username) != null)
+        {
+            throw new Exception("Username already registered.");
+        }
+
+        // Permitir actualizar TODOS los campos
+        existing.FirstName = updatedDino.FirstName;
+        existing.LastName = updatedDino.LastName;
+        existing.Username = updatedDino.Username;
+        existing.Email = updatedDino.Email;
+        existing.Password = updatedDino.Password;
+        existing.Age = updatedDino.Age;
+        existing.Type = updatedDino.Type;
+        existing.Zone = updatedDino.Zone;
+        existing.Sector = updatedDino.Sector;
+        existing.Phone = updatedDino.Phone;
+
+        // Guardar cambios
+        _repository.Update(existing);
+
+        // Confirmación
+        Console.WriteLine("Dinosaur updated successfully!");
+    }
+    
     public IEnumerable<App.Entities.Dinosaur> GetAll()
     {
         return _queries.GetAll();
+    }
+    
+    
+    // Get By Id
+    public Dinosaur? GetById(int id)
+    {
+        return _queries.GetById(id);
     }
 
     public IEnumerable<App.Entities.Dinosaur> GetOrderedByCreatedDesc()

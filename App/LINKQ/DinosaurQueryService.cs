@@ -40,6 +40,16 @@ public class DinosaurQueryService
     {
         return _repository.GetAll();
     }
+    
+    public Dinosaur? GetById(int id)
+    {
+        return _repository.GetById(id);
+    }
+
+    public IEnumerable<Dinosaur> GetNameAndEmailReport()
+    {
+        return _repository.GetAll();
+    }
 
     // public var found(string regCode)
     // {
