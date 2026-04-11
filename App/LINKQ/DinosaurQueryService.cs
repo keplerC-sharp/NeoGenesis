@@ -31,10 +31,10 @@ public class DinosaurQueryService
         return _repository.GetAll().Where(d => d.Age >= minAge);
     }
 
-    // public IEnumerable<App.Entities.Dinosaur> FilterByDiet(App.Entities.Type diet)
-    // {
-    //     return _repository.GetAll().Where(d => d.Diet == diet);
-    // }
+    public IEnumerable<App.Entities.Dinosaur> FilterByType(string Type)
+    {
+        return _repository.GetAll().Where(d => d.Type == Type);
+    }
 
     public IEnumerable<App.Entities.Dinosaur> GetAll()
     {

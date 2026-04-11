@@ -215,13 +215,13 @@ void ShowGetNameAndEmailReport(IEnumerable<Dinosaur> dino)
 //     throw;
 // }
 
-void GetNameAndEmailReport()
-{
-    var result = query.GetNameAndEmailReport();
-    ShowGetNameAndEmailReport(result);
-}
+// void GetNameAndEmailReport()
+// {
+//     var result = query.GetNameAndEmailReport();
+//     ShowGetNameAndEmailReport(result);
+// }
 
-GetNameAndEmailReport();
+// GetNameAndEmailReport();
 
 
 // UPDATE DINO
@@ -279,3 +279,10 @@ GetNameAndEmailReport();
 //     }
 
 
+// void GetByType()
+// {
+//     var result = service.FilterByType("Carnivore");
+//     ShowList(result);
+// }
+
+// GetByType();

@@ -114,10 +114,10 @@ public class DinosaurService
         return _queries.FilterByMinAge(minAge);
     }
 
-    /*public IEnumerable<App.Entities.Dinosaur> FilterByDiet(App.Entities.DietType diet)
+    public IEnumerable<App.Entities.Dinosaur> FilterByType(string Type)
     {
-        return _queries.FilterByDiet(diet);
-    }*/
+        return _queries.FilterByType(Type);
+    }
 
     public bool DeleteByEmail(string email)
     {
