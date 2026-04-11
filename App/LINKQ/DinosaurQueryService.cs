@@ -1,26 +1,38 @@
+using System;
+using App.Data;
+using App.Entities;
+using App.Repository;
+
+
 namespace App.LINKQ;
 
 public class DinosaurQueryService
 {
-    readonly App.Repository.DinosaurRepository _repo;
+    private readonly NeoGenesisContext _context;
+    private readonly DinosaurRepository _repository;
 
-    public DinosaurQueryService(App.Repository.DinosaurRepository repo)
+    public DinosaurQueryService(NeoGenesisContext context, DinosaurRepository repository)
     {
-        _repo = repo;
+        _context = context;
+        _repository = repository;
     }
-
     public IEnumerable<App.Entities.Dinosaur> OrderByCreatedDesc()
     {
-        return _repo.GetAll().OrderByDescending(d => d.CreatedAt);
+        return _repository.GetAll().OrderByDescending(d => d.CreationDate);
     }
 
     public IEnumerable<App.Entities.Dinosaur> OrderBySpecies()
     {
+<<<<<<< HEAD
         return _repo.GetAll().OrderBy(d => d.LastName);
+=======
+        return _repository.GetAll().OrderBy(d => d.LastName);
+>>>>>>> Develop
     }
 
     public IEnumerable<App.Entities.Dinosaur> FilterByMinAge(int minAge)
     {
+<<<<<<< HEAD
         return _repo.GetAll().Where(d => d.Age >= minAge);
     }
 
@@ -34,3 +46,34 @@ public class DinosaurQueryService
         return _repo.GetAll();
     }
 }
+=======
+        return _repository.GetAll().Where(d => d.Age >= minAge);
+    }
+
+    // public IEnumerable<App.Entities.Dinosaur> FilterByDiet(App.Entities.Type diet)
+    // {
+    //     return _repository.GetAll().Where(d => d.Diet == diet);
+    // }
+
+    public IEnumerable<App.Entities.Dinosaur> GetAll()
+    {
+        return _repository.GetAll();
+    }
+    
+    public Dinosaur? GetById(int id)
+    {
+        return _repository.GetById(id);
+    }
+
+    public IEnumerable<Dinosaur> GetNameAndEmailReport()
+    {
+        return _repository.GetAll();
+    }
+
+    // public var found(string regCode)
+    // {
+    //     var found = _context.Dinosaurs.where(code => code.regCode);
+    // }
+    
+}
+>>>>>>> Develop

@@ -200,7 +200,7 @@ The system validates each field in order:
 
 If all validations pass, the record is saved to the database and a success message is shown.
 
-## 2. Consult Dinosaurs
+### 5.2. Consult Dinosaurs
 
 The user selects a query type and the system executes it via LINQ (EF Core), then displays the results in the console.
 
@@ -218,7 +218,7 @@ Available query types:
 - Alphabetical order (by name)
 - Counts (by zone or sector)
 
-## 3. Update Dinosaur
+### 5.3. Update Dinosaur
 
 The user searches for a dinosaur by ID or Email. If not found, the system shows: "Dinosaur not found."
 
@@ -228,13 +228,13 @@ If updating the password, the user must enter and confirm the new password. If t
 
 If everything is valid, the record is updated in the database.
 
-## 4. Delete Dinosaur
+### 5.4. Delete Dinosaur
 
 The user searches for a dinosaur by ID or Email. If not found, the system shows: "Dinosaur not found."
 
 If found, the system asks for confirmation (Y/N). If the user declines, the operation is cancelled. If confirmed, the record is deleted from the database.
 
-## 5. Exit
+### 5.5. Exit
 
 The system asks: "Are you sure you want to exit? (Y/N)". If the user confirms, the application ends. Otherwise, it returns to the main menu.
 
@@ -245,22 +245,57 @@ The system asks: "Are you sure you want to exit? (Y/N)". If the user confirms, t
 - Query language: LINQ
 - Interface: Console application
 
-## 6. System Functionalities
+---
 
-### 6.1 Insertion
+## 6. UML Use Case Diagrams
+![Use Case Diagram 1](./useCase1.png)
+![Use Case Diagram 2](./useCase2.png)
+
+### 6.1. Basic Architecture (Single Actor Model)
+**File:** `diagram_basic.png` / `diagram_basic.drawio`
+
+This diagram represents the strict fulfillment of the base requirements. 
+* **Actor:** `Investigator` (Generic Staff)
+* **Description:** A single actor interacts with the entire system, handling all CRUD (Create, Read, Update, Delete) operations and report generation. It focuses on functional requirements without permission restrictions.
+
+### 6.2. Advanced Architecture (Role-Based Access Control)
+**File:** `diagram_advanced.png` / `diagram_advanced.drawio`
+
+This diagram goes the "extra mile" by implementing a realistic organizational hierarchy and security permissions. It introduces actor generalization:
+* **Base Actor:** `NeoGenesis Staff` (Inherits basic query and report generation access).
+* **Actor 1: Scientist / Investigator:** Responsible for day-to-day operations. Can register new dinosaurs, update standard information, and run specific scientific queries.
+* **Actor 2: Park Administrator:** Possesses elevated security clearances. This is the only role authorized to delete a dinosaur from the system or update sensitive security codes.
+
+---
+
+## ⚙️ Core System Features
+
+The system modeled in these diagrams supports the following modules:
+
+* **Insertion Module:** Registers new specimens with mandatory unique identifiers (Username, Email/Lab Code, Species, etc.).
+* **Update Module:** Modifies specimen data and handles secure password/security code updates.
+* **Deletion Module:** Removes specimens from the database requiring strict safety confirmations.
+* **Query & Reporting Module (LINQ-ready):** * Filters specimens by Zone, Sector, Age, and Diet (Carnivore/Herbivore).
+  * Tracks anomalies (e.g., specimens without active GPS trackers or registered locations).
+  * Generates population statistics and chronological registration reports.
+
+---
+## 7. System Functionalities
+
+### 7.1 Insertion
 - Register new dinosaurs
 - Validate uniqueness of Username and Email
 - Confirm successful creation
 
-### 6.2 Update
+### 7.2 Update
 - Modify dinosaur data
 - Update password with confirmation
 
-### 6.3 Deletion
+### 7.3 Deletion
 - Delete by Id or Email
 - Require confirmation before deletion
 
-### 6.4 Queries (LINQ)
+### 7.4 Queries (LINQ)
 
 Basic:
 - List all dinosaurs
@@ -285,7 +320,7 @@ Advanced Filters:
 
 ---
 
-## 7. Technical Requirements
+## 8. Technical Requirements
 
 - Language: C#
 - ORM: Entity Framework Core
@@ -293,26 +328,62 @@ Advanced Filters:
 
 ---
 
-## 8. Migrations (EF Core)
+## 9. Migrations (EF Core)
 
+### Environment Variables (Way 1)
+Edit Your bash File (Linux)
 ```bash
-Add-Migration InitialCreate
-Update-Database
+nano ~/.bashrc
 ```
+Add at the end of the file
+```bash
+export DB_HOST=localhost
+export DB_NAME=dinosaurs_db
+export DB_USER=root
+export DB_PASSWORD=tu_password
+```
+Save and close AND save changes in the evironment
+```
+source ~/.bashrc
+```
+---
 
-## 9. Best Practices Applied
+### Environment Variables (Way 2)
+Quickly option on terminal
+```bash
+export DB_HOST=localhost
+export DB_NAME=dinosaurs_db
+export DB_USER=root
+export DB_PASSWORD=tu_password
+```
+**This is lost when you close the terminal**
+
+---
+
+Afther all this commands
+Add-Migration InitialCreate
+```bash
+dotnet ef migrations add InitialCreate
+```
+Update-Database
+```bash
+dotnet ef database update
+```
+---
+
+## 10. Best Practices Applied
 - Separation of concerns
 - Clean and readable code
 - Use of design patterns (Repository, Service)
 - Centralized validations
 - LINQ for querying
 
-## 10. Possible Improvements
+## 11. Possible Improvements
 - Authentication and authorization
 - Movement history tracking
 - Real-time sensor integration
 - REST API implementation
 
-## 11. Conclusion
+## 12. Conclusion
 
 The proposed system provides an efficient, scalable, and reliable solution for managing dinosaur records within NeoGenesis Park, fulfilling all functional and technical requirements.
