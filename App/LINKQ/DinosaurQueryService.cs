@@ -16,6 +16,7 @@ public class DinosaurQueryService
         _context = context;
         _repository = repository;
     }
+
     public IEnumerable<App.Entities.Dinosaur> OrderByCreatedDesc()
     {
         return _repository.GetAll().OrderByDescending(d => d.CreationDate);
@@ -31,16 +32,11 @@ public class DinosaurQueryService
         return _repository.GetAll().Where(d => d.Age >= minAge);
     }
 
-    // public IEnumerable<App.Entities.Dinosaur> FilterByDiet(App.Entities.Type diet)
-    // {
-    //     return _repository.GetAll().Where(d => d.Diet == diet);
-    // }
-
     public IEnumerable<App.Entities.Dinosaur> GetAll()
     {
         return _repository.GetAll();
     }
-    
+
     public Dinosaur? GetById(int id)
     {
         return _repository.GetById(id);
@@ -50,10 +46,16 @@ public class DinosaurQueryService
     {
         return _repository.GetAll();
     }
-
-    // public var found(string regCode)
-    // {
-    //     var found = _context.Dinosaurs.where(code => code.regCode);
-    // }
     
+    public IEnumerable<Dinosaur> GetWithoutTracking()
+    {
+        return _repository.GetWithoutTracking();
+    }
+
+    public IEnumerable<Dinosaur> FilterByZoneAndSector(string zone, string sector)
+    {
+        return _repository.GetAll()
+            .Where(d => d.Zone.ToLower() == zone.ToLower() &&
+                        d.Sector.ToLower() == sector.ToLower());
+    }
 }

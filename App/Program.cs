@@ -97,6 +97,90 @@ void ShowGetNameAndEmailReport(IEnumerable<Dinosaur> dino)
     
     Console.WriteLine($"Total dinosaurs: {dino.Count()}");
 }
+
+void FilterByZoneAndSector()
+{
+    Console.Write("Enter zone: ");
+    string zone = Console.ReadLine() ?? string.Empty;
+
+    Console.Write("Enter sector: ");
+    string sector = Console.ReadLine() ?? string.Empty;
+
+    var list = service.FilterByZoneAndSector(zone, sector);
+    Console.WriteLine($"Dinosaurs in zone '{zone}' and sector '{sector}':");
+    ShowList(list);
+}
+
+try
+{
+    FilterByZoneAndSector();
+}
+catch (Exception e)
+{
+    Console.WriteLine(e);
+    throw;
+}
+
+void ListWithoutTracking()
+{
+    var list = service.GetWithoutTracking();
+    Console.WriteLine("Dinosaurs without tracking device or location:");
+    ShowList(list);
+}
+
+try
+{
+    ListWithoutTracking();
+}
+catch (Exception e)
+{
+    Console.WriteLine(e);
+    throw;
+}
+
+void DeleteById()
+{
+    Console.Write("Enter dinosaur ID to delete: ");
+    string input = Console.ReadLine() ?? string.Empty;
+
+    if (!int.TryParse(input, out int id))
+    {
+        Console.WriteLine("Invalid ID.");
+        return;
+    }
+
+    var dino = service.GetById(id);
+    if (dino == null)
+    {
+        Console.WriteLine("Dinosaur not found.");
+        return;
+    }
+
+    Console.WriteLine($"Found: {dino.Id} | {dino.FirstName} | {dino.LastName} | {dino.Email}");
+    Console.Write("Are you sure you want to delete this dinosaur? (Y/N): ");
+    string confirm = Console.ReadLine()?.Trim().ToUpperInvariant() ?? string.Empty;
+
+    if (confirm == "Y")
+    {
+        var ok = service.DeleteById(id);
+        if (ok) Console.WriteLine("Dinosaur deleted successfully.");
+        else Console.WriteLine("Could not delete the dinosaur.");
+    }
+    else
+    {
+        Console.WriteLine("Operation cancelled. No changes were made.");
+    }
+}
+
+try
+{
+    DeleteById();
+}
+catch (Exception e)
+{
+    Console.WriteLine(e);
+    throw;
+}
 //
 //     void ListAll()
 //     {

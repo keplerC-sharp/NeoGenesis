@@ -118,6 +118,21 @@ public class DinosaurService
     {
         return _queries.FilterByDiet(diet);
     }*/
+    
+    public IEnumerable<Dinosaur> FilterByZoneAndSector(string zone, string sector)
+    {
+        return _queries.FilterByZoneAndSector(zone, sector);
+    }
+    
+    public IEnumerable<Dinosaur> GetWithoutTracking()
+    {
+        return _queries.GetWithoutTracking();
+    }
+    
+    public bool DeleteById(int id)
+    {
+        return _repository.Delete(id);
+    }
 
     public bool DeleteByEmail(string email)
     {
