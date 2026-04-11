@@ -1,30 +1,131 @@
-using App.Data;
-using App.Entities;
+using System;
+using App.Repository;
 using App.Validators;
+using App.Entities;
+using App.LINKQ;
 
 namespace App.Service;
 
 public class DinosaurService
 {
-    private readonly NeoGenesisContext _context;
+    private readonly DinosaurRepository _repository;
     private readonly DinosaurValidator _validator;
+    readonly DinosaurQueryService _queries;
 
-    public DinosaurService(NeoGenesisContext context, DinosaurValidator validator)
+    public DinosaurService(DinosaurRepository repository, 
+        DinosaurValidator validator,
+        DinosaurQueryService queries)
     {
-        _context = context;
+        _repository = repository;
         _validator = validator;
+        _queries = queries;
+    }
+    
+    public void Register(Dinosaur dino)
+    {
+        _validator.ValidateFields(dino);
+
+        if (_repository.GetByEmail(dino.Email) != null)
+            throw new Exception("Email already registered.");
+
+        if (_repository.GetByUsername(dino.Username) != null)
+            throw new Exception("Username already registered.");
+
+        _repository.Add(dino);
+
+        Console.WriteLine("Dinosaur registered successfully!");
+    }
+    
+    public void Update(Dinosaur updatedDino)
+    {
+        var existing = _repository.GetById(updatedDino.Id);
+
+        if (existing == null)
+            throw new Exception("Dinosaur not found.");
+
+        // Validar campos obligatorios
+        if (string.IsNullOrWhiteSpace(updatedDino.FirstName) ||
+            string.IsNullOrWhiteSpace(updatedDino.LastName) ||
+            string.IsNullOrWhiteSpace(updatedDino.Username) ||
+            string.IsNullOrWhiteSpace(updatedDino.Email))
+        {
+            throw new Exception("Required fields cannot be empty.");
+        }
+
+        // Validar email formato
+        _validator.ValidateEmail(updatedDino.Email);
+
+        // Validar duplicados (si cambian)
+        if (existing.Email != updatedDino.Email &&
+            _repository.GetByEmail(updatedDino.Email) != null)
+        {
+            throw new Exception("Email already registered.");
+        }
+
+        if (existing.Username != updatedDino.Username &&
+            _repository.GetByUsername(updatedDino.Username) != null)
+        {
+            throw new Exception("Username already registered.");
+        }
+
+        // Permitir actualizar TODOS los campos
+        existing.FirstName = updatedDino.FirstName;
+        existing.LastName = updatedDino.LastName;
+        existing.Username = updatedDino.Username;
+        existing.Email = updatedDino.Email;
+        existing.Password = updatedDino.Password;
+        existing.Age = updatedDino.Age;
+        existing.Type = updatedDino.Type;
+        existing.Zone = updatedDino.Zone;
+        existing.Sector = updatedDino.Sector;
+        existing.Phone = updatedDino.Phone;
+
+        // Guardar cambios
+        _repository.Update(existing);
+
+        // Confirmación
+        Console.WriteLine("Dinosaur updated successfully!");
+    }
+    
+    public IEnumerable<App.Entities.Dinosaur> GetAll()
+    {
+        return _queries.GetAll();
+    }
+    
+    
+    // Get By Id
+    public Dinosaur? GetById(int id)
+    {
+        return _queries.GetById(id);
     }
 
-    public string Register(Dinosaur dinosaur)
+    public IEnumerable<App.Entities.Dinosaur> GetOrderedByCreatedDesc()
     {
-        if (!_validator.UniqueEmail(dinosaur.Email))
-            return "Sorry, this email is already registered";
+        return _queries.OrderByCreatedDesc();
+    }
 
-        if (!_validator.UniqueUserName(dinosaur.Username))
-            return "Sorry, the username is already in use";
+    public IEnumerable<App.Entities.Dinosaur> GetOrderedBySpecies()
+    {
+        return _queries.OrderBySpecies();
+    }
 
-        _context.Dinosaurs.Add(dinosaur);
-        _context.SaveChanges();
-        return "Successfully registered dinosaur";
+    public IEnumerable<App.Entities.Dinosaur> FilterByMinAge(int minAge)
+    {
+        return _queries.FilterByMinAge(minAge);
+    }
+
+    /*public IEnumerable<App.Entities.Dinosaur> FilterByDiet(App.Entities.DietType diet)
+    {
+        return _queries.FilterByDiet(diet);
+    }*/
+
+    public bool DeleteByEmail(string email)
+    {
+        return _repository.DeleteByEmail(email);
+    }
+
+    public App.Entities.Dinosaur? GetByEmail(string email)
+    {
+        return _repository.GetByEmail(email);
     }
 }
