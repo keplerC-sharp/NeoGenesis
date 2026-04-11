@@ -1,16 +1,3 @@
-App/.env
-
-# Build output
-bin/
-obj/
-
-# IDE
-.idea/
-.vs/
-*.user
-
-# OS
-.DS_Store
-Thumbs.db
-
+App/bin/
+App/obj/
 CLAUDE.md
