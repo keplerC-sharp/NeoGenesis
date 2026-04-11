@@ -32,6 +32,14 @@ public class DinosaurQueryService
         return _repository.GetAll().Where(d => d.Age >= minAge);
     }
 
+<<<<<<< HEAD
+=======
+    public IEnumerable<App.Entities.Dinosaur> FilterByType(string Type)
+    {
+        return _repository.GetAll().Where(d => d.Type == Type);
+    }
+
+>>>>>>> origin/Develop
     public IEnumerable<App.Entities.Dinosaur> GetAll()
     {
         return _repository.GetAll();
@@ -46,6 +54,7 @@ public class DinosaurQueryService
     {
         return _repository.GetAll();
     }
+<<<<<<< HEAD
     
     public IEnumerable<Dinosaur> GetWithoutTracking()
     {
@@ -59,3 +68,22 @@ public class DinosaurQueryService
                         d.Sector.ToLower() == sector.ToLower());
     }
 }
+=======
+
+    public IEnumerable<object> CountByZone()
+    {
+        return _repository.GetAll()
+            .GroupBy(d => d.Zone)
+            .Select(g => new { Zone = g.Key, Count = g.Count() })
+            .ToList();
+    }
+
+    public IEnumerable<object> CountBySector()
+    {
+        return _repository.GetAll()
+            .GroupBy(d => d.Sector)
+            .Select(g => new { Sector = g.Key, Count = g.Count() })
+            .ToList();
+    }
+}
+>>>>>>> origin/Develop

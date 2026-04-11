@@ -114,8 +114,9 @@ public class DinosaurService
         return _queries.FilterByMinAge(minAge);
     }
 
-    /*public IEnumerable<App.Entities.Dinosaur> FilterByDiet(App.Entities.DietType diet)
+    public IEnumerable<App.Entities.Dinosaur> FilterByType(string Type)
     {
+<<<<<<< HEAD
         return _queries.FilterByDiet(diet);
     }*/
     
@@ -132,6 +133,9 @@ public class DinosaurService
     public bool DeleteById(int id)
     {
         return _repository.Delete(id);
+=======
+        return _queries.FilterByType(Type);
+>>>>>>> origin/Develop
     }
 
     public bool DeleteByEmail(string email)
@@ -142,5 +146,33 @@ public class DinosaurService
     public App.Entities.Dinosaur? GetByEmail(string email)
     {
         return _repository.GetByEmail(email);
+    }
+
+    public void ChangePassword(int id, string newPassword)
+    {
+        var existing = _repository.GetById(id);
+
+        if (existing == null)
+            throw new Exception("Dinosaur not found.");
+
+        existing.Password = newPassword;
+        _repository.Update(existing);
+
+        Console.WriteLine("Password updated successfully!");
+    }
+
+    public IEnumerable<App.Entities.Dinosaur> GetNameAndEmailReport()
+    {
+        return _queries.GetNameAndEmailReport();
+    }
+
+    public IEnumerable<object> CountByZone()
+    {
+        return _queries.CountByZone();
+    }
+
+    public IEnumerable<object> CountBySector()
+    {
+        return _queries.CountBySector();
     }
 }
