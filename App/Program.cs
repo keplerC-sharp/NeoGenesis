@@ -215,13 +215,13 @@ void ShowGetNameAndEmailReport(IEnumerable<Dinosaur> dino)
 //     throw;
 // }
 
-// void GetNameAndEmailReport()
-// {
-//     var result =query.GetNameAndEmailReport();
-//     ShowGetNameAndEmailReport(result);
-// }
-//
-// GetNameAndEmailReport();
+void GetNameAndEmailReport()
+{
+    var result = query.GetNameAndEmailReport();
+    ShowGetNameAndEmailReport(result);
+}
+
+GetNameAndEmailReport();
 
 
 // UPDATE DINO

@@ -23,30 +23,11 @@ public class DinosaurQueryService
 
     public IEnumerable<App.Entities.Dinosaur> OrderBySpecies()
     {
-<<<<<<< HEAD
-        return _repo.GetAll().OrderBy(d => d.LastName);
-=======
         return _repository.GetAll().OrderBy(d => d.LastName);
->>>>>>> Develop
     }
 
     public IEnumerable<App.Entities.Dinosaur> FilterByMinAge(int minAge)
     {
-<<<<<<< HEAD
-        return _repo.GetAll().Where(d => d.Age >= minAge);
-    }
-
-    public IEnumerable<App.Entities.Dinosaur> FilterByDiet(App.Entities.DietType diet)
-    {
-        return _repo.GetAll().Where(d => d.Diet == diet);
-    }
-
-    public IEnumerable<App.Entities.Dinosaur> GetAll()
-    {
-        return _repo.GetAll();
-    }
-}
-=======
         return _repository.GetAll().Where(d => d.Age >= minAge);
     }
 
@@ -76,4 +57,3 @@ public class DinosaurQueryService
     // }
     
 }
->>>>>>> Develop
