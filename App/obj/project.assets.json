@@ -2511,19 +2511,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ADMIN\\.nuget\\packages\\": {}
+    "C:\\Users\\JUAN JOSE\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ADMIN\\Desktop\\Actividad celula1\\NeoGenesis\\App\\App.csproj",
+      "projectUniqueName": "C:\\Users\\JUAN JOSE\\Desktop\\NeoGenesis\\App\\App.csproj",
       "projectName": "App",
-      "projectPath": "C:\\Users\\ADMIN\\Desktop\\Actividad celula1\\NeoGenesis\\App\\App.csproj",
-      "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ADMIN\\Desktop\\Actividad celula1\\NeoGenesis\\App\\obj\\",
+      "projectPath": "C:\\Users\\JUAN JOSE\\Desktop\\NeoGenesis\\App\\App.csproj",
+      "packagesPath": "C:\\Users\\JUAN JOSE\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\JUAN JOSE\\Desktop\\NeoGenesis\\App\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\JUAN JOSE\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net10.0"

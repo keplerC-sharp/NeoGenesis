@@ -51,9 +51,19 @@ public class DinosaurQueryService
         return _repository.GetAll();
     }
 
-    // public var found(string regCode)
-    // {
-    //     var found = _context.Dinosaurs.where(code => code.regCode);
-    // }
-    
+    public IEnumerable<object> CountByZone()
+    {
+        return _repository.GetAll()
+            .GroupBy(d => d.Zone)
+            .Select(g => new { Zone = g.Key, Count = g.Count() })
+            .ToList();
+    }
+
+    public IEnumerable<object> CountBySector()
+    {
+        return _repository.GetAll()
+            .GroupBy(d => d.Sector)
+            .Select(g => new { Sector = g.Key, Count = g.Count() })
+            .ToList();
+    }
 }

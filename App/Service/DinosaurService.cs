@@ -128,4 +128,32 @@ public class DinosaurService
     {
         return _repository.GetByEmail(email);
     }
+
+    public void ChangePassword(int id, string newPassword)
+    {
+        var existing = _repository.GetById(id);
+
+        if (existing == null)
+            throw new Exception("Dinosaur not found.");
+
+        existing.Password = newPassword;
+        _repository.Update(existing);
+
+        Console.WriteLine("Password updated successfully!");
+    }
+
+    public IEnumerable<App.Entities.Dinosaur> GetNameAndEmailReport()
+    {
+        return _queries.GetNameAndEmailReport();
+    }
+
+    public IEnumerable<object> CountByZone()
+    {
+        return _queries.CountByZone();
+    }
+
+    public IEnumerable<object> CountBySector()
+    {
+        return _queries.CountBySector();
+    }
 }
