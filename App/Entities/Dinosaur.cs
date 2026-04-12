@@ -26,6 +26,8 @@ public class Dinosaur
     public string Zone { get; set; }
     public string Sector { get; set; }
     public string Phone { get; set; }
+    public string? TrackingDevice { get; set; }
+    public string? Location { get; set; }
     
     // Auto Set
     public DateTime CreationDate { get; set; } = DateTime.UtcNow;

@@ -52,6 +52,23 @@ public class DinosaurRepository
         _context.Dinosaurs.Update(dino);
         _context.SaveChanges();
     }
+    
+    // Filtrar por Zone y Sector
+    public IEnumerable<Dinosaur> GetByZoneAndSector(string zone, string sector)
+    {
+        return _context.Dinosaurs
+            .Where(d => d.Zone.ToLower() == zone.ToLower() &&
+                        d.Sector.ToLower() == sector.ToLower())
+            .ToList();
+    }
+    
+    // Listar sin tener tracking o location
+    public IEnumerable<Dinosaur> GetWithoutTracking()
+    {
+        return _context.Dinosaurs
+            .Where(d => d.TrackingDevice == null && d.Location == null)
+            .ToList();
+    }
 
     // Eliminar por Id
     public bool Delete(int id)

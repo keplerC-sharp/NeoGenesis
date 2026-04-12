@@ -159,8 +159,7 @@ public class ParkMenu
                         ShowOne(_service.GetByEmail(emailInput));
                         break;
                     case "4":
-                        // TODO: FilterByZone and FilterBySector not implemented yet
-                        Console.WriteLine("Feature not implemented yet.");
+                        FilterByZoneAndSector();
                         break;
                     case "5":
                         FilterByAgeOrType();
@@ -181,8 +180,7 @@ public class ParkMenu
                         }
                         break;
                     case "8":
-                        // TODO: GetWithoutTrackingDevice and GetWithoutLocation not implemented yet
-                        Console.WriteLine("Feature not implemented yet.");
+                        GetWithoutTracking();
                         break;
                     case "9":
                         Console.WriteLine("\n=== Sorted by Registration Date (newest first) ===");
@@ -388,8 +386,7 @@ public class ParkMenu
                 switch (input)
                 {
                     case "1":
-                        // TODO: DeleteById not implemented yet
-                        Console.WriteLine("Feature not implemented yet.");
+                        DeleteById();
                         break;
                     case "2":
                         DeleteByEmail();
@@ -405,6 +402,41 @@ public class ParkMenu
             {
                 Console.WriteLine($"Error: {ex.Message}");
             }
+        }
+    }
+
+    private void DeleteById()
+    {
+        Console.Write("Enter dinosaur ID: ");
+        var idInput = Console.ReadLine();
+        if (!int.TryParse(idInput, out var id))
+        {
+            Console.WriteLine("Invalid ID.");
+            return;
+        }
+
+        var dino = _service.GetById(id);
+        if (dino == null)
+        {
+            Console.WriteLine("No dinosaur found with that ID.");
+            return;
+        }
+
+        Console.WriteLine("Dinosaur found:");
+        ShowOne(dino);
+
+        Console.Write("Are you sure you want to delete this dinosaur? (Y/N): ");
+        var confirm = Console.ReadLine()?.Trim().ToUpperInvariant();
+
+        if (confirm == "Y")
+        {
+            var ok = _service.DeleteById(id);
+            if (ok) Console.WriteLine("Dinosaur deleted successfully.");
+            else Console.WriteLine("Could not delete the dinosaur.");
+        }
+        else
+        {
+            Console.WriteLine("Operation cancelled. No changes were made.");
         }
     }
 
@@ -436,6 +468,24 @@ public class ParkMenu
         {
             Console.WriteLine("Operation cancelled. No changes were made.");
         }
+    }
+
+    private void FilterByZoneAndSector()
+    {
+        Console.Write("Enter zone: ");
+        var zone = Console.ReadLine() ?? string.Empty;
+
+        Console.Write("Enter sector: ");
+        var sector = Console.ReadLine() ?? string.Empty;
+
+        Console.WriteLine($"\n=== Dinosaurs in Zone: {zone}, Sector: {sector} ===");
+        ShowList(_service.FilterByZoneAndSector(zone, sector));
+    }
+
+    private void GetWithoutTracking()
+    {
+        Console.WriteLine("\n=== Dinosaurs without tracking device or location ===");
+        ShowList(_service.GetWithoutTracking());
     }
 
     private void ShowList(IEnumerable<Dinosaur> list)
