@@ -116,26 +116,22 @@ public class DinosaurService
 
     public IEnumerable<App.Entities.Dinosaur> FilterByType(string Type)
     {
-<<<<<<< HEAD
-        return _queries.FilterByDiet(diet);
-    }*/
-    
+        return _queries.FilterByType(Type);
+    }
+
     public IEnumerable<Dinosaur> FilterByZoneAndSector(string zone, string sector)
     {
         return _queries.FilterByZoneAndSector(zone, sector);
     }
-    
+
     public IEnumerable<Dinosaur> GetWithoutTracking()
     {
         return _queries.GetWithoutTracking();
     }
-    
+
     public bool DeleteById(int id)
     {
         return _repository.Delete(id);
-=======
-        return _queries.FilterByType(Type);
->>>>>>> origin/Develop
     }
 
     public bool DeleteByEmail(string email)
