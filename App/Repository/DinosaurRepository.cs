@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using App.Data;
 using App.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace App.Repository;
@@ -42,15 +43,29 @@ public class DinosaurRepository
     // Agregar
     public void Add(Dinosaur dino)
     {
-        _context.Dinosaurs.Add(dino);
-        _context.SaveChanges();
+        try
+        {
+            _context.Dinosaurs.Add(dino);
+            _context.SaveChanges();
+        }
+        catch (DbUpdateException ex)
+        {
+            throw new Exception(ex.InnerException?.Message ?? ex.Message);
+        }
     }
 
     // Actualizar
     public void Update(Dinosaur dino)
     {
-        _context.Dinosaurs.Update(dino);
-        _context.SaveChanges();
+        try
+        {
+            _context.Dinosaurs.Update(dino);
+            _context.SaveChanges();
+        }
+        catch (DbUpdateException ex)
+        {
+            throw new Exception(ex.InnerException?.Message ?? ex.Message);
+        }
     }
     
     // Filtrar por Zone y Sector
@@ -78,9 +93,16 @@ public class DinosaurRepository
         if (dino == null)
             return false;
 
-        _context.Dinosaurs.Remove(dino);
-        _context.SaveChanges();
-        return true;
+        try
+        {
+            _context.Dinosaurs.Remove(dino);
+            _context.SaveChanges();
+            return true;
+        }
+        catch (DbUpdateException ex)
+        {
+            throw new Exception(ex.InnerException?.Message ?? ex.Message);
+        }
     }
 
     // Eliminar por Email (útil para tu Service)
@@ -91,8 +113,15 @@ public class DinosaurRepository
         if (dino == null)
             return false;
 
-        _context.Dinosaurs.Remove(dino);
-        _context.SaveChanges();
-        return true;
+        try
+        {
+            _context.Dinosaurs.Remove(dino);
+            _context.SaveChanges();
+            return true;
+        }
+        catch (DbUpdateException ex)
+        {
+            throw new Exception(ex.InnerException?.Message ?? ex.Message);
+        }
     }
 }
